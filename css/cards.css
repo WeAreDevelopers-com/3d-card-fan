@@ -1,0 +1,120 @@
+/* === Card Fan Container === */
+
+:root {
+  --fan-rotation-step: 4deg;
+}
+
+.card-fan {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  perspective: 1200px;
+  perspective-origin: center center;
+  padding: 3rem 1rem;
+}
+
+/* === Card Base Styles === */
+
+.card {
+  --index: 0;
+  --offset-y: 0px;
+  width: 170px;
+  height: 230px;
+  padding: 1rem 1.1rem;
+  border-radius: 1.3rem;
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.85),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: -65px;
+  position: relative;
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  outline: none;
+  z-index: 1;
+
+  transform: rotateZ(calc(var(--index) * var(--fan-rotation-step)))
+    translateY(var(--offset-y)) translateZ(0px);
+
+  transition: transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1), z-index 0s 120ms;
+}
+
+.card:first-child {
+  margin-left: 0;
+}
+
+.card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #9ca3af;
+}
+
+.card:nth-child(1) {
+  --index: -3;
+  --offset-y: 45px;
+}
+.card:nth-child(2) {
+  --index: -2;
+  --offset-y: 30px;
+}
+.card:nth-child(3) {
+  --index: -1;
+  --offset-y: 15px;
+}
+.card:nth-child(4) {
+  --index: 0;
+  --offset-y: 0px;
+}
+.card:nth-child(5) {
+  --index: 1;
+  --offset-y: 15px;
+}
+.card:nth-child(6) {
+  --index: 2;
+  --offset-y: 30px;
+}
+.card:nth-child(7) {
+  --index: 3;
+  --offset-y: 45px;
+}
+
+/* === 3D Hover Interaction === */
+
+.card:hover,
+.card:focus-visible {
+  transform: rotateZ(calc(var(--index) * var(--fan-rotation-step)))
+    translateY(calc(var(--offset-y) - 30px)) translateZ(60px);
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(56, 189, 248, 0.4);
+  z-index: 10;
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1), z-index 0s;
+}
+
+/* === Reduced Motion === */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+    transform: rotateZ(calc(var(--index) * var(--fan-rotation-step)))
+      translateY(var(--offset-y));
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: rotateZ(calc(var(--index) * var(--fan-rotation-step)))
+      translateY(calc(var(--offset-y) - 10px));
+  }
+}

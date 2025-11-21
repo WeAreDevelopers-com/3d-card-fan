@@ -1,10 +1,7 @@
 /* === Card Fan Container === */
 
-:root {
-  --fan-rotation-step: 4deg;
-}
-
 .card-fan {
+  --fan-rotation-step: 4deg;
   display: flex;
   justify-content: center;
   gap: 0;
